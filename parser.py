@@ -148,6 +148,14 @@ class Parser(sly.Parser):
     def expr(self, p):
         return ast_.BinOp('>=', p.expr0, p.expr1)
 
+    @_('expr EQ expr')
+    def expr(self, p):
+        return ast_.BinOp('==', p.expr0, p.expr1)
+
+    @_('expr NEQ expr')
+    def expr(self, p):
+        return ast_.BinOp('!=', p.expr0, p.expr1)
+
     @_('NUM')
     def expr(self, p):
         return ast_.IntLiteral(p.NUM)

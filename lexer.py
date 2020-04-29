@@ -30,6 +30,8 @@ class Lexer(sly.Lexer):
     GT = r'>'
     LTE = r'<='
     GTE = r'<='
+    EQ = r'=='
+    NEQ = r'!='
 
     LPARAN = r'\('
     RPARAN = r'\)'
