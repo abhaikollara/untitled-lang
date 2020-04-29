@@ -103,7 +103,7 @@ class Parser(sly.Parser):
     @_("ID LPARAN args_list RPARAN")
     def expr(self, p):
         return ast_.FunctionCall(p.ID, p.args_list)
-    
+
     @_("expr COMMA args_list")
     def args_list(self, p):
         return [p.expr] + p.args_list
@@ -163,4 +163,3 @@ class Parser(sly.Parser):
     @_('ID')
     def expr(self, p):
         return ast_.Identifier(p.ID)
-

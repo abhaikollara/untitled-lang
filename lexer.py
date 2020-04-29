@@ -36,4 +36,3 @@ class Lexer(sly.Lexer):
     LBRACE = r'\{'
     RBRACE = r'\}'
     COMMA = r'\,'
-
