@@ -50,6 +50,10 @@ class Parser(sly.Parser):
     def stmt(self, p):
         return p.func_def
 
+    # @_("expr")
+    # def stmt(self, p):
+    #     return p.expr
+
     # Actual statements
 
     @_("LET ID ASSIGN expr")
@@ -96,6 +100,17 @@ class Parser(sly.Parser):
         return [p.ID]
 
     # Expressions
+    @_("ID LPARAN args_list RPARAN")
+    def expr(self, p):
+        return ast_.FunctionCall(p.ID, p.args_list)
+    
+    @_("expr COMMA args_list")
+    def args_list(self, p):
+        return [p.expr] + p.args_list
+
+    @_("expr")
+    def args_list(self, p):
+        return [p.expr]
 
     @_('LPARAN expr RPARAN')
     def expr(self, p):

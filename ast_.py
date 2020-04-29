@@ -57,13 +57,22 @@ class FunctionDef(Statement):
     def __repr__(self):
         return f"Function({self.id})"
 
+class FunctionCall(Expression):
+    
+    def __init__(self, ident, args):
+        self.id = ident
+        self.args = args
+    
+    def __repr__(self):
+        return f"Call({repr(self.id)})"
+
 class Identifier(Expression):
 
-    def __init__(self, ident):
-        self.id = ident
+    def __init__(self, name):
+        self.name = name
 
     def __repr__(self):
-        return f"Identifier({self.id})"
+        return f"Identifier({self.name})"
 
 class BinOp(Expression):
 
