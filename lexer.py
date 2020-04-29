@@ -37,12 +37,3 @@ class Lexer(sly.Lexer):
     RBRACE = r'\}'
     COMMA = r'\,'
 
-
-if __name__ == "__main__":
-    l = Lexer()
-    source = """let a = (1 + 2) * 3
-    """
-    toks = l.tokenize(source)
-
-    for t in toks:
-        print(t.type, t.value)
