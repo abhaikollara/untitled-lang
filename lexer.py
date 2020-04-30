@@ -3,7 +3,7 @@ import sly
 
 class Lexer(sly.Lexer):
     tokens = {LET, ASSIGN, IF, ELSE, TRUE, FALSE, FUNC, RETURN, ID, NUM,
-              PLUS, MINUS, MULT, DIV, LT, GT, LTE, GTE, LPARAN, RPARAN, LBRACE, RBRACE, COMMA}
+              PLUS, MINUS, MULT, DIV, LT, GT, LTE, GTE, EQ, NEQ, LPARAN, RPARAN, LBRACE, RBRACE, COMMA}
 
     ignore = r'\t'
     ignore_newline = r'\n'
