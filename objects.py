@@ -1,20 +1,20 @@
 class Object: pass
 
-class Integer(Object):
+class Number(Object):
     def __init__(self, value):
         self.value = value
     
     def __add__(self, other):
-        return Integer(self.value + other.value)
+        return Number(self.value + other.value)
     
     def __sub__(self, other):
-        return Integer(self.value - other.value)
+        return Number(self.value - other.value)
     
     def __mul__(self, other):
-        return Integer(self.value * other.value)
+        return Number(self.value * other.value)
     
     def __div__(self, other):
-        return Integer(self.value // other.value)
+        return Number(self.value // other.value)
 
     def __gt__(self, other):
         if self.value > other.value:

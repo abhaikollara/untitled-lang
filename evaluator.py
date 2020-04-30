@@ -37,8 +37,8 @@ class Evaluator:
     def evaluate(self, node, env):
         if isinstance(node, ast_.Block):
             return self.evaluate_block(node, env)
-        elif isinstance(node, ast_.IntLiteral):
-            return self.evaluate_int_literal(node, env)
+        elif isinstance(node, ast_.NumLiteral):
+            return self.evaluate_num_literal(node, env)
         elif isinstance(node, ast_.BoolLiteral):
             return self.evaluate_bool_literal(node, env)
         elif isinstance(node, ast_.Assignment):
@@ -68,8 +68,12 @@ class Evaluator:
         
         return objects.Returned(objects.NIL)
 
-    def evaluate_int_literal(self, node, env):
-        return objects.Integer(int(node.value))
+    def evaluate_num_literal(self, node, env):
+        try:
+            value = int(node.value)
+        except ValueError:
+            value = float(node.value)
+        return objects.Number(value)
 
     def evaluate_bool_literal(self, node, env):
         if node.value == 'true':
@@ -85,7 +89,7 @@ class Evaluator:
     def is_truthy(value):
         if value == objects.TRUE:
             return True
-        if isinstance(value, objects.Integer):
+        if isinstance(value, objects.Number):
             return value.value == 0
         
         return False

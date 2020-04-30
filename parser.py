@@ -158,7 +158,7 @@ class Parser(sly.Parser):
 
     @_('NUM')
     def expr(self, p):
-        return ast_.IntLiteral(p.NUM)
+        return ast_.NumLiteral(p.NUM)
 
     @_('TRUE')
     def expr(self, p):

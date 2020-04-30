@@ -19,7 +19,7 @@ class Lexer(sly.Lexer):
     RETURN = r'return'
 
     ID = r'[a-zA-Z][a-zA-Z0-9_]*'
-    NUM = r'[0-9]+'
+    NUM = r'(\d*\.?\d+)'
 
     PLUS = r'\+'
     MINUS = r'\-'

@@ -98,13 +98,13 @@ class BinOp(Expression):
         return f"BinOp({repr(self.left)} {self.op} {repr(self.right)})"
 
 
-class IntLiteral(Expression):
+class NumLiteral(Expression):
 
     def __init__(self, value):
         self.value = value
 
     def __repr__(self):
-        return f"Int({self.value})"
+        return f"Num({self.value})"
 
 
 class BoolLiteral(Expression):
