@@ -4,7 +4,7 @@ from lexer import Lexer
 from parser import Parser
 import ast_
 import objects
-
+import builtins_
 
 class Environment:
 
@@ -106,6 +106,8 @@ class Evaluator:
 
     def evaluate_function_call(self, node, env):
         func = env.get(node.id)
+        if isinstance(func, objects.BuiltIn):
+            return self.evaluate_builtin(func, node.args, env)
         if not isinstance(func, objects.Function):
             raise TypeError(f"Expected function, found {func} of type {type(func)}")
 
@@ -116,6 +118,9 @@ class Evaluator:
 
         return self.evaluate_block(func.body, new_env).value
 
+    def evaluate_builtin(self, func, args, env):
+        if isinstance(func, builtins_.PrintFunction):
+            return func.evaluate(self.evaluate(args[0], env), env)
 
     def evaluate_return(self, node, env):
         rval = self.evaluate(node.expr, env)
@@ -157,10 +162,11 @@ class Evaluator:
 
     def eval_program(self, program):
         env = Environment()
+        env.bindings.update(builtins_.BUILTINS)
         for stmt in program.stmts:
             last = self.evaluate(stmt, env)
-            if last is not None:
-                print(last)
+            # if last is not None:
+            #     print(last)
 
     def eval_source(self, source):
         tokens = self.lexer.tokenize(source)

@@ -86,6 +86,8 @@ class Returned(Object):
     def __repr__(self):
         return f"Returned({self.value})"
 
+class BuiltIn(Object): pass
+
 class Nil(Object):
 
     def __repr__(self):
