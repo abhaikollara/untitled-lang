@@ -12,16 +12,16 @@ class Environment:
         self.parent = parent
         self.bindings = {}
 
-    def get_symbol(self, sym):
+    def get(self, sym):
         try:
             return self.bindings[sym]
         except KeyError:
             if self.parent is not None:
-                return self.parent.get_symbol(sym)
+                return self.parent.get(sym)
 
             raise ValueError(f"Unbound symbol {sym}")
 
-    def add(self, sym, value):
+    def set(self, sym, value):
         self.bindings[sym] = value
     
     def __repr__(self):
@@ -79,7 +79,7 @@ class Evaluator:
 
     def evaluate_assignment(self, node, env):
         value = self.evaluate(node.expr, env)
-        env.add(node.id, value)
+        env.set(node.id, value)
 
     @staticmethod
     def is_truthy(value):
@@ -98,17 +98,17 @@ class Evaluator:
     
     def evaluate_function_def(self, node, env):
         func = objects.Function(node.id, node.params, node.body, env)
-        env.add(node.id, func)
+        env.set(node.id, func)
 
     def evaluate_function_call(self, node, env):
-        func = env.get_symbol(node.id)
+        func = env.get(node.id)
         if not isinstance(func, objects.Function):
             raise TypeError(f"Expected function, found {func} of type {type(func)}")
 
         new_env = Environment(parent=env)
         new_env.bindings.update(func.env.bindings)
         for param,arg in zip(func.params, node.args):
-            new_env.add(param, self.evaluate(arg, env))
+            new_env.set(param, self.evaluate(arg, env))
 
         return self.evaluate_block(func.body, new_env).value
 
@@ -149,7 +149,7 @@ class Evaluator:
         return op(lhs, rhs)
 
     def evaluate_identifier(self, ident, env):
-        return env.get_symbol(ident.name)
+        return env.get(ident.name)
 
     def eval_program(self, program):
         env = Environment()
