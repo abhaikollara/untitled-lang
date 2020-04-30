@@ -16,8 +16,6 @@ class Environment:
         try:
             return self.bindings[sym]
         except KeyError:
-            print(self.bindings)
-            print(self.parent)
             if self.parent is not None:
                 return self.parent.get_symbol(sym)
 
