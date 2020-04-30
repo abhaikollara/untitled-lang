@@ -50,9 +50,9 @@ class Parser(sly.Parser):
     def stmt(self, p):
         return p.func_def
 
-    # @_("expr")
-    # def stmt(self, p):
-    #     return p.expr
+    @_("expr")
+    def stmt(self, p):
+        return p.expr
 
     # Actual statements
 
@@ -122,7 +122,7 @@ class Parser(sly.Parser):
 
     @_('expr MINUS expr')
     def expr(self, p):
-        return ast_BinOp('-', p.expr0, p.expr1)
+        return ast_.BinOp('-', p.expr0, p.expr1)
 
     @_('expr MULT expr')
     def expr(self, p):
