@@ -1,4 +1,5 @@
 from objects import BuiltIn
+from environment import Environment
 
 
 class PrintFunction(BuiltIn):
@@ -7,6 +8,5 @@ class PrintFunction(BuiltIn):
         print(str)
 
 
-BUILTINS = {
-    'print': PrintFunction()
-}
+BUILTINS = Environment()
+BUILTINS.set('print', PrintFunction())
