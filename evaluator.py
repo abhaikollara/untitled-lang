@@ -93,7 +93,7 @@ class Evaluator:
                 f"Expected function, found {func} of type {type(func)}")
 
         new_env = Environment(parent=env)
-        new_env.bindings.update(func.env.bindings)
+        new_env.merge(func.env)
         for param, arg in zip(func.params, node.args):
             new_env.set(param, self.evaluate(arg, env))
 
