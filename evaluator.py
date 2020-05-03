@@ -6,6 +6,7 @@ import ast_
 import objects
 import builtins_
 
+
 class Environment:
 
     def __init__(self, parent=None):
@@ -23,7 +24,7 @@ class Environment:
 
     def set(self, sym, value):
         self.bindings[sym] = value
-    
+
     def __repr__(self):
         return repr(self.bindings)
 
@@ -65,7 +66,7 @@ class Evaluator:
             last = self.evaluate(stmt, env)
             if isinstance(last, objects.Returned):
                 return last
-        
+
         return objects.Returned(objects.NIL)
 
     def evaluate_num_literal(self, node, env):
@@ -91,7 +92,7 @@ class Evaluator:
             return True
         if isinstance(value, objects.Number):
             return value.value == 0
-        
+
         return False
 
     def evaluate_conditional(self, node, env):
@@ -99,7 +100,7 @@ class Evaluator:
             return self.evaluate(node.cons, env)
         elif node.alt is not None:
             return self.evaluate(node.alt, env)
-    
+
     def evaluate_function_def(self, node, env):
         func = objects.Function(node.id, node.params, node.body, env)
         env.set(node.id, func)
@@ -109,11 +110,12 @@ class Evaluator:
         if isinstance(func, objects.BuiltIn):
             return self.evaluate_builtin(func, node.args, env)
         if not isinstance(func, objects.Function):
-            raise TypeError(f"Expected function, found {func} of type {type(func)}")
+            raise TypeError(
+                f"Expected function, found {func} of type {type(func)}")
 
         new_env = Environment(parent=env)
         new_env.bindings.update(func.env.bindings)
-        for param,arg in zip(func.params, node.args):
+        for param, arg in zip(func.params, node.args):
             new_env.set(param, self.evaluate(arg, env))
 
         return self.evaluate_block(func.body, new_env).value

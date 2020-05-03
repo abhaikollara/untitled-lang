@@ -1,18 +1,20 @@
-class Object: pass
+class Object:
+    pass
+
 
 class Number(Object):
     def __init__(self, value):
         self.value = value
-    
+
     def __add__(self, other):
         return Number(self.value + other.value)
-    
+
     def __sub__(self, other):
         return Number(self.value - other.value)
-    
+
     def __mul__(self, other):
         return Number(self.value * other.value)
-    
+
     def __div__(self, other):
         return Number(self.value // other.value)
 
@@ -52,19 +54,22 @@ class Number(Object):
     def __str__(self):
         return str(self.value)
 
+
 class Boolean(Object):
 
     def __init__(self, value):
         self.value = value
-    
+
     def __repr__(self):
         return f"Boolean({self.value})"
-    
+
     def __str__(self):
         return str(self.value)
 
+
 TRUE = Boolean("true")
 FALSE = Boolean("false")
+
 
 class Function(Object):
 
@@ -73,7 +78,7 @@ class Function(Object):
         self.params = params
         self.body = body
         self.env = env
-    
+
     def __repr__(self):
         return f"Function({self.name})"
 
@@ -82,15 +87,19 @@ class Returned(Object):
 
     def __init__(self, value):
         self.value = value
-    
+
     def __repr__(self):
         return f"Returned({self.value})"
 
-class BuiltIn(Object): pass
+
+class BuiltIn(Object):
+    pass
+
 
 class Nil(Object):
 
     def __repr__(self):
         return f"<NIL>"
+
 
 NIL = Nil()
