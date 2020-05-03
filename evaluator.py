@@ -100,7 +100,7 @@ class Evaluator:
         for param, arg in zip(func.params, node.args):
             new_env.set(param, self.evaluate(arg, env))
 
-        return self.evaluate_block(func.body, new_env).value
+        return self.evaluate_block(func.body, new_env).value #TODO: There should be a cleaner way
 
     def evaluate_builtin(self, func, args, env):
         if isinstance(func, builtins_.PrintFunction):
