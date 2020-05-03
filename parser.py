@@ -6,7 +6,7 @@ import ast_
 class Parser(sly.Parser):
     tokens = Lexer.tokens
     precedence = (
-        ('nonassoc', LT, LTE, GT, GTE),
+        ('nonassoc', LT, LTE, GT, GTE, EQ, NEQ),
         ('left', PLUS, MINUS),
         ('left', MULT, DIV))
 
