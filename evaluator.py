@@ -165,8 +165,6 @@ class Evaluator:
         env.bindings.update(builtins_.BUILTINS)
         for stmt in program.stmts:
             last = self.evaluate(stmt, env)
-            # if last is not None:
-            #     print(last)
 
     def eval_source(self, source):
         tokens = self.lexer.tokenize(source)
