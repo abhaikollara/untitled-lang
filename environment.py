@@ -20,4 +20,4 @@ class Environment:
         self.bindings.update(other.bindings)
 
     def __repr__(self):
-        return repr(self.bindings)
+        return f"Environment({repr(self.bindings)})"
