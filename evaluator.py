@@ -94,6 +94,9 @@ class Evaluator:
 
         new_env = Environment(parent=env)
         new_env.merge(func.env)
+
+        if len(func.params) != len(node.args):
+            raise ValueError(f"`{str(func.name)}` takes {len(func.params)} arguments, but were given {len(node.args)}")
         for param, arg in zip(func.params, node.args):
             new_env.set(param, self.evaluate(arg, env))
 
